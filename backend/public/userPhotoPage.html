@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+</head>
+<style>
+    .custom-class {
+        display: none;
+    }
+
+    @media (min-width: 576px) {
+        .custom-class {
+            max-width: 40%;
+            
+        }
+    }
+</style>
+<body>
+    <div class="position-absolute " id="logoutButton" style="left: 10px; top: 10px; z-index: 100000000;"><button class="btn p-3" style="background-color: #0500FF; color: white;">Logout</button></div>
+        <nav class="navbar  fixed-top">
+            <div class="container-fluid">s
+              <a class="navbar-brand" href="#"></a>
+              <button id="viewButton" class="navbar-toggler p-4 pt-3 pb-3" style=" border-color: #0500FF; color: #0500FF;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                View
+              </button>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
+                  <button type="button" class="rounded p-4 pt-3 pb-3" style="background-color: white; border-color: #0500FF; color: #0500FF;" data-bs-dismiss="offcanvas" aria-label="Close">Back</button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Name</label>
+                        <div  id="formInput" class="form-control" id="formGroupExampleInput"></div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Photo</label>
+                        <img id="formImage" class="container-fluid w-100  rounded style="background-color: rgb(240, 240, 240); height: 15em; border-color: rgb(201, 201, 201); border-style: dashed;"></div>
+                        <div class="container-fluid w-100 d-flex justify-content-center align-items-center" id="approvedDiv"></div>
+                      </div>
+                 
+                 
+                </div>
+              </div>
+           
+          </nav>
+       
+        <div class="container-fluid  custom-class d-flex flex-column justify-content-center w-100" style="height: 100vh;" >
+          <form enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="formGroupExampleInput" class="form-label">Name</label>
+              <input type="text" class="form-control" id="formGroupExampleInput">
+            </div>
+            <div id="hiddenDiv" class="container-fluid w-100 rounded" style="display: none; background-color: rgb(240, 240, 240); height: 15em; border-color: rgb(201, 201, 201); border-style: dashed;"></div>
+            <div class="mb-3">
+              <label for="formGroupExampleInput2" class="form-label">Photo</label>
+              <img id="croppedImage" class="container-fluid w-100 rounded" style="background-color: rgb(240, 240, 240); height: 15em; border-color: rgb(201, 201, 201); border-style: dashed;">
+            </div>
+            <label for="uploadInput" class="form-label">Upload Photo</label>
+            <input type="file" id="uploadInput" class="form-control mb-4">
+            <button type="button" onclick="updateUser()" class="btn w-100 p-4 pt-2 pb-2" style="background-color: #0500FF; color: white;"> Upload</button>
+         </form>
+            
+        </div>
+    </div>
+    <script>
+      
+       document.addEventListener("DOMContentLoaded", async function () {
+
+
+        const uploadInput = document.getElementById("uploadInput");
+        const croppedImage = document.getElementById("croppedImage");
+        let cropper;
+
+
+        uploadInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    
+                    if (cropper) {
+                        cropper.destroy();
+                    }
+
+                  
+                    croppedImage.src = e.target.result;
+
+                  
+                    cropper = new Cropper(croppedImage, {
+                        aspectRatio: 1, 
+                        viewMode: 1, 
+                        crop: function (event) {
+                    // Handle the crop event
+                    const croppedCanvas = cropper.getCroppedCanvas();
+                    updateHiddenDiv(croppedCanvas);
+                    
+                }
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+ 
+
+
+
+
+
+            try {
+                const token = localStorage.getItem("jwtToken");
+
+                if (!token) {
+                    console.error("JWT Token not available");
+                    return;
+                }
+
+              
+                const decodedToken = JSON.parse(atob(token.split('.')[1]));
+                const userId = decodedToken.userId;
+
+                const response = await fetch(`http://localhost:5050/api/user/getUserInfo/${userId}`, {
+                    method: "GET",
+                    headers: {
+                        
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const userData = await response.json();
+                    displayUserInfo(userData);
+                } else {
+                    console.error("Failed to get user information");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+
+        function updateHiddenDiv(croppedCanvas) {
+            
+ 
+    const hiddenDiv = document.getElementById('hiddenDiv');
+            if(croppedCanvas){
+                hiddenDiv.innerHTML = '<img src="'+ croppedCanvas.toDataURL()+'"/>';
+            }else {
+      
+        hiddenDiv.innerHTML = 'Cropping is not valid.';
+    }
+
+    
+}
+        function displayUserInfo(userData) {
+          const nameInput = document.getElementById("formInput");
+          const photoContainer = document.getElementById("formImage");
+          const viewButton = document.getElementById("viewButton");
+            const alert = document.getElementById("approvedDiv");
+            
+            if(userData.userInfo.approved){
+                alert.style.color = "green";
+                alert.innerHTML = "Approved by admin";
+            }else{
+                
+                alert.style.color = "red";
+                alert.innerHTML = "Not approved by admin";
+            }
+ 
+          if (userData.userInfo.name !== undefined && userData.userInfo.profileImage !== undefined) {
+     
+            nameInput.innerHTML = userData.userInfo.name;
+            const imgPath = `${userData.userInfo.profileImage}`;
+            photoContainer.src = imgPath;
+
+
+             viewButton.removeAttribute("disabled");
+          } else {
+   
+        viewButton.setAttribute("disabled", "true");
+
+    
+        console.log("User data is incomplete. Cannot enable the 'View' button.");
+    }
+
+   
+    document.getElementById("offcanvasNavbar").classList.remove("custom-class");
+        }
+    </script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/js/user-scripts/updateUser.js"></script>
+    <script src="../static/js/logout.js"></script>
+</body>
+
+</html>

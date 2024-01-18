@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .custom-class {
+            display: none;
+        }
+ 
+        @media (max-width: 576px) {
+            .custom-class {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="d-flex container-fluid align-items-start justify-content-center custom-class  p-0 " style="height: 100vh; ">
+    <div class="container d-flex  justify-content-center align-items-center border h-100 " style="background-color: blue;" >
+        <div class="container-sm  w-50 p-5 fs-2 fw-bold d-flex  justify-content-center align-items-center" style="background-color: white; color: blue;">
+            Logo
+        </div>
+    </div>
+    <div class="container d-flex flex-column justify-content-center align-items-center border h-100">
+        <div class="container d-flex flex-column justify-content-center align-items-center mb-5">
+            <h1>Admin Login</h1>
+        </div>
+        <p id="alert"></p>
+        <div class="form-floating mb-3 w-50">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">User Id</label>
+          </div>
+          <div class="form-floating w-50">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="container d-flex flex-column justify-content-center align-items-center mb-5">
+            <button type="button" onclick="validateLogin()" class="btn btn-primary mt-5 w-50 p-3"> Login</button>
+        </div>
+      </div>
+   </div>
+    <script src="../static/js/admin-scripts/adminLogin.js"></script>
+    
+   <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

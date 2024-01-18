@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+       @media only screen and (min-width: 576px) {
+        #mobileComponent {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+  
+    #desktopComponent {
+        display: none !important;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <div class="position-absolute " id="logoutButton" style="left: 10px; top: 10px; "><button class="btn p-3" style="background-color: #0500FF; color: white;">Logout</button></div>
+    <div class="container-fluid w-100 p-0 d-flex flex-column gap-4" style="height: 100vh;">
+    
+       <div class="container-fluid w-100 p-2">
+        <a href="/adminCreateUser" class="btn w-20 p-4 pt-3 pb-3" style="border: 1px solid ; color:#0500FF;">back</a>
+       </div>
+
+        <div user-card-container-mobile class="container-fluid w-100 d-flex p-0 gap-4 flex-column"  id="mobileComponent">
+           
+        </div>
+
+        <div class="container-fluid w-100 d-flex p-0 gap-4 flex-column p-2" id="desktopComponent">
+           <div class="container-fluid text-center">
+
+            <div class="row">
+                <div class="col p-4 " style="border: 1px solid; border-color:black; background-color: #EAECFF;">User Id</div>
+                <div class="col p-4 " style="border: 1px solid; border-color:black; background-color: #EAECFF;">Name</div>
+                <div class="col p-4 " style="border: 1px solid; border-color:black; background-color: #EAECFF;">Photo</div>
+                <div class="col p-4 " style="border: 1px solid; border-color:black; background-color: #EAECFF;">Action</div>
+              </div>
+              
+              <div user-card-container class="container-fluid text-center p-0">
+               
+
+              </div>
+              
+           </div>
+         </div>
+
+         <template data-user-template>
+            <div class="row">
+                <div data-user-id class="col p-4 d-flex justify-content-center align-items-center" style="border: 1px solid; border-color:black; background-color: #ffffff;">User Id</div>
+                <div data-user-name class="col p-4 d-flex justify-content-center align-items-center" style="border: 1px solid; border-color:black; background-color: #ffffff;">Name</div>
+                <div data-user-photo class="col p-4 d-flex justify-content-center align-items-center" style="border: 1px solid; border-color:black; background-color: #ffffff;"><img src="" style="width: 6em;" alt="profile image"></div>
+                <div  class="col p-4 d-flex justify-content-center align-items-center gap-2" style="border: 1px solid; border-color:black; background-color: #ffffff;">
+                    <button class="btn done-btn " user-id="" onclick="approveUser(event)" style="background-color: #0500FF; color: white;">Done</button>
+                    <button user-id="" user-name="" onclick="deleteUser(event)"  class="btn delete-btn" style="background-color: #ffffff;border-color: #0500FF; color: #0500FF;">Delete</button>
+                </div>
+              </div>
+         </template>
+         <template data-user-template-mobile>
+            <div class="container-fluid d-flex flex-column ">
+                <div class="container-fluid d-flex justify-content-center align-items-center  p-3 " style="background-color: 
+                #EAECFF; border: 1px solid; border-color: black;" >
+                    <div  class=" p-2" style=" border-right: 1px solid; border-color: black;">User Id: <span data-user-id></span></div>
+                    <div class="p-2">Name: <span data-user-name ></span> </div>
+                </div>
+                <div class="container-fluid border d-flex p-2">
+                    <div class="d-flex w-50 gap-3">
+                        <div>
+                            Photo:
+                        </div>
+                        <div data-user-photo   >  
+                            <img src="" alt="" style="width: 5em; height: 5em;">
+    
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center align-items-center w-50 gap-3">
+                        <div>
+                            Action
+                        </div>
+                        <div class=" d-flex gap-2" >  
+                            <button user-id=""  class="btn done-btn-mobile" onclick="approveUser(event)" style="background-color: #0500FF; color: white;">Done</button>
+                            <button user-id="" user-name="" onclick="deleteUser(event)" class="btn delete-btn-mobile" style="background-color: #ffffff;border-color: #0500FF; color: #0500FF;">Delete</button>
+                        </div>
+                    </div>
+                </div>
+    
+               </div>
+         </template>
+    </div>
+
+
+
+
+    <script src="../static/js/admin-scripts/deleteUser.js"></script>
+    <script src="../static/js/admin-scripts/getAllUsersListPage.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/js/logout.js"></script>
+    <script src="../static/js/admin-scripts/approveUser.js"></script>
+</body>
+</html>
