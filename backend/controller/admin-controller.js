@@ -68,11 +68,10 @@ export const adminLogin = async (req, res, next) => {
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    console.log("session", req.session);
-    console.log("Session before saving:", req.session);
-    req.session.user = { userId: adminUser.userId, role: adminUser.role };
-    console.log("Session after setting user:", req.session);
 
+    
+    req.session.user = { userId: adminUser.userId, role: adminUser.role };
+    
     const token = jwt.sign(
       {
         userId: adminUser._id,

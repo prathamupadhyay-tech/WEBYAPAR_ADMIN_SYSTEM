@@ -46,7 +46,7 @@ const isAuthenticated = (req, res, next) => {
 };
 
 const isAuthorized = (req, res, next) => {
-  console.log("session", req.session);
+ 
   if (req.session !== undefined) {
     if (req.session?.user?.role === "admin") {
       return next();
@@ -102,7 +102,7 @@ app.get("/adminCreateUser", isAuthorized, (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  console.log(req.cookies);
+
   if (req.session.user) {
     // Clear the session cookie
     res.clearCookie("connect.sid", { path: "/" });
@@ -112,8 +112,8 @@ app.get("/logout", (req, res) => {
         console.error("Error destroying session:", err);
       }
     });
-    console.log(req.session);
-    console.log("redirect");
+   
+    
     res.redirect("/");
   } else {
     res.redirect("/");

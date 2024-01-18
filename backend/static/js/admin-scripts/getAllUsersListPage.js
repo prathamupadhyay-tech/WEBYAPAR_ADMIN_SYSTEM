@@ -45,7 +45,7 @@ fetch("http://localhost:5050/api/user/getUsers")
       const userPhotoImg = photo.querySelector("img");
       const userPhotoImgMobile = mobilephoto.querySelector("img");
       let imgPath;
-      console.log(user.approved);
+   
      
 
       if (user.profileImage) {

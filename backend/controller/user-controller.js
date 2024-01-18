@@ -18,7 +18,7 @@ export const addUsers = async (req, res, next) => {
   try {
     existingUser = await user.findOne({ userId });
     if (existingUser) {
-      console.log(existingUser);
+      
       return res.status(400).json({ message: "user already exits" });
     }
     const salt = await bcryptjs.genSalt(10);
@@ -112,18 +112,17 @@ export const getUsers = async (req, res, next) => {
 };
 
 export const updateUser = async (req, res, next) => {
-  console.log("Received request body:", req.body);
+ 
   const username = req.body.name;
   const userIdFromToken = req.params.userId;
-  console.log(username);
-  console.log(userIdFromToken);
+  
   try {
     if (!req.file) {
       return res
         .status(400)
         .json({ message: "No file uploaded", success: false });
     }
-    console.log(req.file);
+   
 
     const processedImageBuffer = await sharp(req.file.path)
       .resize(200)

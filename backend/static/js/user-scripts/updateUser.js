@@ -36,9 +36,9 @@ async function updateUser() {
     const croppedImageData = hiddenDiv.querySelector("img").src;
     const blob = base64toBlob(croppedImageData, "image/png");
     formData.append("profileImage", blob);
-    console.log(blob);
   
-    console.log("formdata", formData);
+  
+    
  
     const response = await fetch(
       `http://localhost:5050/api/user/updateUser/${userId}`,
