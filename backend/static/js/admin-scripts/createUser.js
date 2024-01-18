@@ -3,7 +3,10 @@ async function addUser() {
   const password = document.getElementById("floatingPassword").value;
 
   var alert = document.getElementById("alert");
-
+  if (userId === "" && password === "") {
+    alert.innerHTML = "please enter valid crendentials";
+    return;
+  }
   try {
     const response = await fetch("http://localhost:5050/api/user/addUser", {
       method: "POST",

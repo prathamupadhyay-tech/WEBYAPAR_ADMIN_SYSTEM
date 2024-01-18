@@ -1,52 +1,52 @@
 async function deleteUser(event) {
   const userId = event.target.getAttribute("user-id");
   const userName = event.target.getAttribute("user-name");
-  
- if(userId && userName){
+
+  if (userId && userName) {
     try {
-        const response = await fetch(
-          `http://localhost:5050/api/admin/deleteUser/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-    
-        const data = await response.json();
-    
-        if (response.ok) {
-          window.location.href = "/adminSideUserList";
-        } else {
-          alert.innerHTML = data.message;
+      const response = await fetch(
+        `http://localhost:5050/api/admin/deleteUser/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Server error");
+      );
+
+      const data = await response.json();
+
+      if (response) {
+        window.location.href = "adminSideUserList";
+      } else {
+        alert.innerHTML = data.message;
       }
- }else{
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error");
+    }
+  } else {
     try {
-        const response = await fetch(
-          `http://localhost:5050/api/admin/deleteUserEntirely/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-    
-        const data = await response.json();
-    
-        if (response.ok) {
-          window.location.href = "/adminSideUserList";
-        } else {
-          alert.innerHTML = data.message;
+      const response = await fetch(
+        `http://localhost:5050/api/admin/deleteUserEntirely/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Server error");
+      );
+
+      const data = await response.json();
+
+      if (response) {
+        window.location.href = "adminSideUserList";
+      } else {
+        alert.innerHTML = data.message;
       }
- }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error");
+    }
+  }
 }

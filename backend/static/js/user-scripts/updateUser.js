@@ -36,22 +36,18 @@ async function updateUser() {
     const croppedImageData = hiddenDiv.querySelector("img").src;
     const blob = base64toBlob(croppedImageData, "image/png");
     formData.append("profileImage", blob);
-  
-  
-    
- 
+
     const response = await fetch(
       `http://localhost:5050/api/user/updateUser/${userId}`,
       {
         method: "POST",
-        body: formData, 
+        body: formData,
       }
     );
 
     if (response.ok) {
       const responseData = await response.json();
       window.location.href = "userPhotoPage";
-      alert(responseData.message);
     } else {
       console.error("Failed to update user information");
     }

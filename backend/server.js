@@ -13,7 +13,7 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 mongoose
-  .connect("mongodb://127.0.0.1:27017/projectDatabase", {
+  .connect(process.env.DATABASE_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -46,7 +46,6 @@ const isAuthenticated = (req, res, next) => {
 };
 
 const isAuthorized = (req, res, next) => {
- 
   if (req.session !== undefined) {
     if (req.session?.user?.role === "admin") {
       return next();
@@ -76,6 +75,9 @@ app.use(
 app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
+  if (req.session?.user?.role === "admin") {
+    res.redirect("/adminCreateUser");
+  }
   res.sendFile(path.resolve(__dirname, "public/adminLogin.html"));
 });
 
@@ -102,7 +104,6 @@ app.get("/adminCreateUser", isAuthorized, (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-
   if (req.session.user) {
     // Clear the session cookie
     res.clearCookie("connect.sid", { path: "/" });
@@ -112,8 +113,7 @@ app.get("/logout", (req, res) => {
         console.error("Error destroying session:", err);
       }
     });
-   
-    
+
     res.redirect("/");
   } else {
     res.redirect("/");

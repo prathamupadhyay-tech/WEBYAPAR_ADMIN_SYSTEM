@@ -19,8 +19,18 @@
 </head>
 <body>
    <div class="d-flex container-fluid align-items-start justify-content-center custom-class  p-0 " style="height: 100vh; ">
-    <div class="container d-flex  justify-content-center align-items-center border h-100 " style="background-color: blue;" >
-        <div class="container-sm  w-50 p-5 fs-2 fw-bold d-flex  justify-content-center align-items-center" style="background-color: white; color: blue;">
+    <div class="container d-flex position-relative  justify-content-center align-items-center border h-100 " style="background-color: 
+    #03013B;" >
+      <div class="container position-absolute "  style="z-index: 2; width: 20vw; height: 20vw;  background-image: linear-gradient(to left, #050259 , #05025900);  border-radius: 50%;">
+        <div class="container position-absolute" style="top: 0.5em; left: 0%; width: 95%; height: 95%; background-color: #03013B; border-radius: 50%;"></div></div>
+
+        <div class="container position-absolute "  style="z-index: 0; width: 40vw; height: 40vw;  background-image: linear-gradient(to left, #050259 , #05025900);  border-radius: 50%;">
+            <div class="container position-absolute" style="top: 0.5em; left: 0%; width: 95%; height: 95%; background-color: #03013B; border-radius: 50%;"></div></div>
+
+        <div class="container position-absolute "  style="z-index: 1; width: 30vw; height: 30vw;  background-image: linear-gradient(to left, #050259 , #05025900);  border-radius: 50%;">
+            <div class="container position-absolute" style="top: 0.5em; left: 0%; width: 95%; height: 95%; background-color: #03013B; border-radius: 50%;"></div></div>
+
+        <div class="container-sm  w-50 p-5 fs-2 fw-bold d-flex  justify-content-center align-items-center" style="z-index: 4; background-color: white; color: blue;">
             Logo
         </div>
     </div>
@@ -28,7 +38,7 @@
         <div class="container d-flex flex-column justify-content-center align-items-center mb-5">
             <h1>Admin Login</h1>
         </div>
-        <p id="alert"></p>
+        <p id="alert"  style="color: red;"></p>
         <div class="form-floating mb-3 w-50">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">User Id</label>
