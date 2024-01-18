@@ -1,5 +1,5 @@
 export const autenticate = (req, res, next) => {
-    const userRole = req.user.role; // Assuming the user role is stored in the JWT
+    const userRole = req.user.role;
     if (userRole === 'admin') {
       
       next();

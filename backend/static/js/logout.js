@@ -9,7 +9,7 @@ document.getElementById("logoutButton").addEventListener("click", async () => {
 
     if (response.ok) {
       localStorage.removeItem("jwtToken");
-      // Redirect to the login page or any other appropriate page
+     
       window.location.href = "/";
     } else {
       console.error("Logout failed:", response.statusText);

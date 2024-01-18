@@ -28,7 +28,7 @@ async function validateLogin() {
       localStorage.setItem("jwtToken", data.token);
       alert(data.message);
 
-      // Redirect to the userPhotoPage.html page
+      
       window.location.href = "/userPhotoPage";
     } else {
       errorMessage.textContent = data.message;

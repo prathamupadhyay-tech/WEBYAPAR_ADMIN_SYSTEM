@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(
   session({
     secret: process.env.JWT_SECRET,
-    cookie: { maxAge: 60 * 60 * 1000 }, // 1 hour
+    cookie: { maxAge: 60 * 60 * 1000 },
     saveUninitialized: false,
   })
 );
@@ -105,9 +105,9 @@ app.get("/adminCreateUser", isAuthorized, (req, res) => {
 
 app.get("/logout", (req, res) => {
   if (req.session.user) {
-    // Clear the session cookie
+  
     res.clearCookie("connect.sid", { path: "/" });
-    // Destroy the session
+   
     req.session.destroy((err) => {
       if (err) {
         console.error("Error destroying session:", err);

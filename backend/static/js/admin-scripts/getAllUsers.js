@@ -5,7 +5,7 @@ const apiUrl = "http://localhost:5050/api/user/getUsers";
 fetch(apiUrl)
   .then((res) => res.json())
   .then((data) => {
-    // Get only the first two users
+   
     const firstTwoUsers = data.allUsers.slice(0, 2);
 
     firstTwoUsers.forEach((user, index) => {

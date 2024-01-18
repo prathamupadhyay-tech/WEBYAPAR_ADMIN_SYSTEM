@@ -7,7 +7,7 @@ async function validateLogin() {
     return;
   }
   try {
-    // Send a request to the server for user authentication
+
     const response = await fetch("http://localhost:5050/api/admin/adminLogin", {
       method: "POST",
       headers: {
@@ -21,7 +21,7 @@ async function validateLogin() {
 
       window.location.href = "adminCreateUser";
     } else {
-      // Display an error message for invalid credentials
+     
       alertElement.innerHTML = "Invalid credentials. Please try again.";
     }
   } catch (error) {
